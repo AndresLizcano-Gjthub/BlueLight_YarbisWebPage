@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#050810">
+<title>Blue Light | Plataformas y puzles 2.5D</title>
+<meta name="description" content="Una ciudad entera vive mirando su pantalla. Un niño con sudadera mostaza se ha soltado y corre hacia la torre. Plataformas y puzles 2.5D hechos en Godot.">
+<meta property="og:title" content="Blue Light">
+<meta property="og:description" content="Una ciudad entera vive mirando su pantalla. Un niño se ha soltado y corre hacia la torre.">
+<meta property="og:type" content="website">
+<!-- CAMBIA: para que la imagen salga al compartir el link, pon la URL completa, por ejemplo https://tu-sitio.vercel.app/capturas/01.jpg -->
+<meta property="og:image" content="capturas/01.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23050810'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%234da6ff'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23e3a712'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Doto:wght@400;700;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noche:#050810;
+  --noche2:#0b1222;
+  --azul:#4da6ff;
+  --mostaza:#e3a712;
+  --calida:#ffb865;
+  --hueso:#e8ebf2;
+  --apagado:#8d97ad;
+  --suave:#c4cad8;
+  --linea:rgba(232,235,242,.1);
+  --gutter:clamp(20px,5vw,72px);
+  --display:"Doto","Courier New",monospace;
+  --texto:"Newsreader",Georgia,serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--noche)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--noche);color:var(--hueso);font:400 1.125rem/1.65 var(--texto);-webkit-font-smoothing:antialiased}
+::selection{background:var(--mostaza);color:var(--noche)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--mostaza);outline-offset:3px;border-radius:4px}
+
+/* ---------- marca y barra ---------- */
+.w-azul{position:relative;display:inline-block;color:var(--azul);text-shadow:0 0 .6em rgba(77,166,255,.6)}
+.w-azul::after{content:"····";position:absolute;left:0;top:0;color:var(--apagado);text-shadow:none;opacity:0}
+.sin-azul .w-azul{animation:cae 1.4s cubic-bezier(.5,0,1,.6) forwards}
+.sin-azul .w-azul::after{animation:aparece 1.2s 1.3s both}
+@keyframes cae{to{transform:translateY(1.3em) rotate(7deg);opacity:0}}
+@keyframes aparece{to{opacity:1}}
+.nav{position:fixed;inset:0 0 auto 0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:16px var(--gutter);background:linear-gradient(to bottom,rgba(5,8,16,.92),rgba(5,8,16,0))}
+.marca{font:900 1.4rem/1 var(--display);letter-spacing:.04em;text-decoration:none}
+.nav ul{display:flex;gap:clamp(14px,2.4vw,32px);list-style:none;margin:0;padding:0;font-size:1rem}
+.nav ul a{text-decoration:none;color:var(--apagado);transition:color .2s}
+.nav ul a:hover{color:var(--hueso)}
+
+/* ---------- portada ---------- */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;isolation:isolate;touch-action:pan-y}
+#escena{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(90deg,var(--noche) 0%,rgba(5,8,16,.78) 34%,rgba(5,8,16,0) 68%)}
+.hero-in{padding:120px var(--gutter) 170px;max-width:900px}
+.titulo{font:900 clamp(3.6rem,13vw,10rem)/.88 var(--display);letter-spacing:.02em;margin:0 0 .3em}
+.lema{font-size:clamp(1.25rem,2.4vw,1.75rem);line-height:1.4;max-width:30ch;margin:0 0 .5em}
+.meta{color:var(--apagado);margin:0 0 2em}
+.acciones{display:flex;flex-wrap:wrap;gap:14px}
+.btn{display:inline-block;padding:.85em 1.5em;border-radius:999px;font:600 1.0625rem/1 var(--texto);text-decoration:none;border:1.5px solid var(--hueso);transition:background .2s,color .2s,border-color .2s}
+.btn:hover{background:var(--hueso);color:var(--noche)}
+.btn.primario{background:var(--mostaza);border-color:var(--mostaza);color:var(--noche)}
+.btn.primario:hover{background:var(--calida);border-color:var(--calida)}
+.estado{position:absolute;left:var(--gutter);bottom:16px;margin:0;color:var(--apagado);font-style:italic}
+.sonido{position:absolute;right:var(--gutter);bottom:12px;background:none;border:1px solid var(--linea);color:var(--apagado);padding:.45em .9em;border-radius:999px;font:inherit;font-size:.95rem;cursor:pointer;transition:color .2s,border-color .2s}
+.sonido:hover{color:var(--hueso)}
+.sonido[aria-pressed=true]{color:var(--hueso);border-color:var(--azul)}
+
+/* ---------- secciones ---------- */
+.seccion{padding:clamp(80px,12vw,150px) var(--gutter)}
+.cont{max-width:1080px;margin:0 auto}
+h2{font:900 clamp(2rem,5vw,3.4rem)/1.05 var(--display);letter-spacing:.01em;margin:0 0 .6em}
+
+.historia .cont{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,6vw,96px);align-items:start}
+.historia h2{margin:0}
+.historia p{max-width:58ch;margin:0 0 1.1em}
+.historia .lead{font-size:clamp(1.35rem,2.4vw,1.75rem);line-height:1.45}
+.historia .nota{color:var(--apagado)}
+
+.reglas h2{max-width:14ch;margin-bottom:.9em}
+.regla{display:grid;grid-template-columns:200px minmax(0,1fr);gap:clamp(20px,4vw,56px);padding:36px 0;border-top:1px solid var(--linea);align-items:start}
+.regla h3{font:600 1.5rem/1.25 var(--texto);margin:0 0 .4em}
+.regla p{margin:0;max-width:56ch;color:var(--suave)}
+.visual{display:flex;flex-direction:column;justify-content:center;min-height:96px}
+.rayado{font:700 1.05rem/1 var(--display);letter-spacing:.08em;color:var(--hueso);white-space:nowrap}
+
+.aviso{display:inline-flex;align-items:center;gap:10px;background:none;border:1px solid var(--linea);color:var(--hueso);padding:.7em 1em;border-radius:12px;font:inherit;font-size:1rem;cursor:pointer;transition:border-color .2s}
+.aviso:hover{border-color:var(--azul)}
+.aviso i{display:block;width:12px;height:12px;border-radius:50%;background:var(--azul)}
+.aviso i+i{width:9px;height:9px;opacity:.55}
+.aviso.suena i:first-child{animation:nota .5s}
+.aviso.suena i+i{animation:nota .5s .24s}
+@keyframes nota{50%{transform:scale(1.7);box-shadow:0 0 16px var(--azul)}}
+
+.cables{display:flex;flex-wrap:wrap;gap:6px 10px}
+.cable{position:relative;width:22px;height:46px;background:none;border:0;padding:0;cursor:pointer}
+.cable::before{content:"";position:absolute;left:50%;top:0;width:2px;height:26px;background:var(--azul);opacity:.5;transform:translateX(-50%);transition:height .3s,background .3s}
+.cable::after{content:"";position:absolute;left:50%;bottom:2px;width:16px;height:16px;border-radius:50%;background:var(--noche2);border:1.5px solid var(--azul);transform:translateX(-50%);transition:background .3s,border-color .3s,box-shadow .3s}
+.cable[aria-pressed=true]::before{height:10px;background:var(--calida);opacity:.8}
+.cable[aria-pressed=true]::after{background:var(--calida);border-color:var(--calida);box-shadow:0 0 18px 4px rgba(255,184,101,.55)}
+.cuenta{margin:8px 0 0;color:var(--apagado);font-size:.95rem}
+
+.recorrido p{max-width:52ch;color:var(--suave);margin:0}
+.escalera{list-style:none;margin:56px 0 0;padding:0;display:flex;flex-direction:column-reverse;gap:6px}
+.escalera li{margin-left:calc(var(--i)*3.2%);padding:10px 0 10px 18px;border-left:2px solid rgba(77,166,255,.35);max-width:560px}
+.escalera li:last-child{border-left-color:var(--mostaza)}
+.escalera b{display:block;font:600 1.2rem/1.3 var(--texto)}
+.escalera span{color:var(--apagado);font-size:1rem;line-height:1.45;display:block}
+
+.galeria{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:40px}
+.galeria figure{margin:0;position:relative;aspect-ratio:16/9;background:var(--noche2);border-radius:10px;overflow:hidden;display:grid;place-items:center}
+.galeria figure:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+.galeria img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.galeria figcaption{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 10px;background:linear-gradient(transparent,rgba(5,8,16,.88));font-size:.95rem;font-style:italic}
+.vacio{color:var(--apagado);font-size:.9rem;text-align:center;padding:1em}
+
+.lista-teclas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(24px,6vw,80px);margin-top:36px}
+.tl{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0;border-top:1px solid var(--linea)}
+.tl .k{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end;color:var(--apagado)}
+kbd{font:600 .95rem/1 ui-monospace,"SF Mono",Consolas,monospace;min-width:2.3em;padding:.6em .75em .65em;text-align:center;color:var(--hueso);background:linear-gradient(#18233f,#101a31);border:1px solid #2a3a62;border-bottom-width:3px;border-radius:7px}
+
+.dentro .cont{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,6vw,96px);align-items:start}
+.dentro p{max-width:56ch;color:var(--suave);margin:0 0 1.1em}
+.dentro h2{margin-bottom:.5em}
+.estructuras h3.sub{font:600 1.05rem/1.3 var(--texto);color:var(--apagado);margin:0 0 .6em;font-style:italic}
+.estructura{padding:20px 0;border-top:1px solid var(--linea)}
+.estructura h4{font:600 1.3rem/1.3 var(--texto);margin:0 0 .25em}
+.estructura p{margin:0}
+
+.jugar h2{font-size:clamp(2.4rem,7vw,5rem)}
+.jugar p{max-width:48ch;color:var(--suave);margin:0 0 2em}
+
+footer{padding:48px var(--gutter) 64px;border-top:1px solid var(--linea);color:var(--apagado);font-size:1rem}
+footer .cont{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:baseline}
+footer p{margin:0;max-width:52ch}
+
+@media (max-width:820px){
+  .historia .cont,.dentro .cont{grid-template-columns:1fr}
+  .regla{grid-template-columns:1fr;gap:16px}
+  .galeria{grid-template-columns:1fr}
+  .galeria figure:first-child{grid-column:auto;grid-row:auto;aspect-ratio:16/9}
+  .lista-teclas{grid-template-columns:1fr}
+  .nav ul li:not(:last-child){display:none}
+  .escalera li{margin-left:calc(var(--i)*1.6%)}
+  .hero-in{padding-bottom:190px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Principal">
+  <a class="marca" href="#" aria-label="Blue Light, inicio"><span class="w-azul">BLUE</span> LIGHT</a>
+  <ul>
+    <li><a href="#historia">Historia</a></li>
+    <li><a href="#reglas">Reglas</a></li>
+    <li><a href="#recorrido">Recorrido</a></li>
+    <li><a href="#capturas">Capturas</a></li>
+    <li><a href="#jugar">Jugar</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<header class="hero" id="inicio">
+  <canvas id="escena" aria-hidden="true"></canvas>
+  <div class="hero-in">
+    <h1 class="titulo"><span class="w-azul">BLUE</span> LIGHT</h1>
+    <p class="lema">Una ciudad entera vive mirando su pantalla. Un niño se ha soltado y corre hacia la torre.</p>
+    <p class="meta">Plataformas y puzles 2.5D, hechos en Godot 4.7.</p>
+    <div class="acciones">
+      <a class="btn primario" href="#jugar">Jugar</a>
+      <a class="btn" href="#historia">Ver la historia</a>
+    </div>
+  </div>
+  <p class="estado" id="estado" aria-hidden="true">Te miran. Quieto.</p>
+  <button class="sonido" id="sonido" type="button" aria-pressed="false">Activar sonido</button>
+</header>
+
+<section class="seccion historia" id="historia">
+  <div class="cont">
+    <h2>Nadie levanta la vista</h2>
+    <div>
+      <p class="lead">De cada pantalla sale un cable que sube desde la nuca de su dueño. Todos los cables suben, barrio a barrio, hasta la antena de una torre.</p>
+      <p>Por ellos viaja la atención de la gente, en pulsos de luz, como la cosecha de un campo.</p>
+      <p>Un niño con una sudadera mostaza se ha soltado. Tú lo llevas hasta la torre.</p>
+      <p class="nota">El juego casi no usa palabras: dos líneas al empezar la primera partida. Lo demás lo cuentan las reglas y lo que se ve.</p>
+    </div>
+  </div>
+</section>
+
+<section class="seccion reglas" id="reglas">
+  <div class="cont">
+    <h2>Se aprende mirando</h2>
+
+    <div class="regla">
+      <div class="visual">
+        <svg viewBox="0 0 200 90" width="200" height="90" aria-hidden="true">
+          <defs><linearGradient id="haz" x1="0" x2="1"><stop offset="0" stop-color="#4da6ff" stop-opacity=".6"/><stop offset="1" stop-color="#4da6ff" stop-opacity="0"/></linearGradient></defs>
+          <path d="M52 52 L196 32 L196 82 Z" fill="url(#haz)"/>
+          <rect x="26" y="42" width="14" height="40" rx="6" fill="#0e1730" stroke="#4da6ff" stroke-opacity=".4"/>
+          <circle cx="36" cy="33" r="7" fill="#0e1730" stroke="#4da6ff" stroke-opacity=".4"/>
+          <rect x="44" y="49" width="9" height="6" rx="1" fill="#c8e4ff"/>
+          <rect x="150" y="64" width="9" height="18" rx="3" fill="#e3a712"/>
+          <circle cx="154.5" cy="60" r="4.5" fill="#f0d9b5"/>
+        </svg>
+      </div>
+      <div>
+        <h3>La luz de las pantallas es la mirada</h3>
+        <p>Si la luz de una pantalla te alcanza un momento, te ven y la red te recupera: la imagen se va a negro y vuelves al último punto de control.</p>
+      </div>
+    </div>
+
+    <div class="regla">
+      <div class="visual">
+        <div><button class="aviso" id="oir" type="button" aria-label="Oír el aviso"><i></i><i></i><span>Oír el aviso</span></button></div>
+      </div>
+      <div>
+        <h3>Cada pocos segundos suena un aviso</h3>
+        <p>Dos notas, Mi y Do. Todos bajan la cabeza a la vez y su luz cae a sus pies. Es el momento de moverse.</p>
+      </div>
+    </div>
+
+    <div class="regla">
+      <div class="visual">
+        <svg viewBox="0 0 100 100" width="96" height="96" role="img" aria-label="Reloj parado a las 21:47">
+          <circle cx="50" cy="50" r="46" fill="none" stroke="#4da6ff" stroke-opacity=".5" stroke-width="2"/>
+          <g stroke="#8d97ad" stroke-width="2" stroke-linecap="round"><line x1="50" y1="8" x2="50" y2="14"/><line x1="92" y1="50" x2="86" y2="50"/><line x1="50" y1="92" x2="50" y2="86"/><line x1="8" y1="50" x2="14" y2="50"/></g>
+          <line x1="50" y1="50" x2="29.8" y2="41.3" stroke="#e8ebf2" stroke-width="4" stroke-linecap="round"/>
+          <line x1="50" y1="50" x2="16.8" y2="42.9" stroke="#e8ebf2" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="50" cy="50" r="3" fill="#e3a712"/>
+        </svg>
+      </div>
+      <div>
+        <h3>Hubo un antes</h3>
+        <p>Los relojes están parados a las 21:47. En las fotos viejas todos miran a la cámara; en las nuevas, todos hacia abajo. En las paredes, alguien ha rayado lo que el sistema no dice: <span class="rayado">ARRIBA, MIRA</span>.</p>
+      </div>
+    </div>
+
+    <div class="regla">
+      <div class="visual">
+        <div class="cables" id="cables" role="group" aria-label="Diez cables dormidos">
+          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 1"></button>
+          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 2"></button>
+          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 3"></button>
+          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 4"></button>
+          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 5"></button>
+          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 6"></button>
+          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 7"></button>
+          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 8"></button>
+          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 9"></button>
+          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 10"></button>
+        </div>
+        <p class="cuenta" id="cuenta" aria-live="polite">0 de 10 cortados</p>
+      </div>
+      <div>
+        <h3>Diez cables duermen</h3>
+        <p>Desde el Prólogo II, en cada escena hay alguien durmiendo con el cable puesto. Nadie lo anuncia. Lo que hagas con ellos cambia cómo termina todo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion recorrido" id="recorrido">
+  <div class="cont">
+    <h2>Doce escenas, del cuarto a la cima</h2>
+    <p>Se lee de abajo arriba, como se sube: empiezas en un cuarto con monitores de tubo y acabas en la antena.</p>
+    <ol class="escalera">
+      <li style="--i:0"><b>Prólogo I · La red</b><span>El cuarto: monitores de tubo y un reloj parado a las 21:47.</span></li>
+      <li style="--i:1"><b>Prólogo II · La escalera</b><span>Un edificio por plantas, hasta el portal.</span></li>
+      <li style="--i:2"><b>El aula</b><span>Pupitres, alumnos y una maestra que se desliza por un raíl.</span></li>
+      <li style="--i:3"><b>Hora punta</b><span>Una fila que avanza y una multitud que no levanta la vista.</span></li>
+      <li style="--i:4"><b>Tendidos</b><span>Azoteas, cables, una palanca y un corte de luz en el barrio.</span></li>
+      <li style="--i:5"><b>El paternóster</b><span>Veinte cabinas en bucle por un edificio de oficinas.</span></li>
+      <li style="--i:6"><b>La última línea</b><span>Un tren quieto y un mundo que se desliza a su alrededor.</span></li>
+      <li style="--i:7"><b>Planta de carga</b><span>Un raíl con treinta y tres carros colgados y una puerta de guillotina.</span></li>
+      <li style="--i:8"><b>La montaña de devoluciones</b><span>Miles de aparatos, una grúa y una garra.</span></li>
+      <li style="--i:9"><b>Campo de antenas</b><span>Trigales, espantapájaros, cuervos y una valla que pide no perderse nada.</span></li>
+      <li style="--i:10"><b>El archivo</b><span>Una nave fría con doscientas veinte tiras de película colgando.</span></li>
+      <li style="--i:11"><b>La torre</b><span>La antena, la ciudad entera a tus pies y un montacargas.</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="seccion" id="capturas">
+  <div class="cont">
+    <h2>Capturas</h2>
+    <!-- CAMBIA: guarda tus capturas en la carpeta capturas/ con estos nombres (01.jpg a 06.jpg) y cambia los pies de foto -->
+    <div class="galeria">
+      <figure><span class="vacio">capturas/01.jpg</span><img src="capturas/01.jpg" alt="Prólogo I, La red" loading="lazy" onerror="this.remove()"><figcaption>Prólogo I · La red</figcaption></figure>
+      <figure><span class="vacio">capturas/02.jpg</span><img src="capturas/02.jpg" alt="Hora punta" loading="lazy" onerror="this.remove()"><figcaption>Hora punta</figcaption></figure>
+      <figure><span class="vacio">capturas/03.jpg</span><img src="capturas/03.jpg" alt="El paternóster" loading="lazy" onerror="this.remove()"><figcaption>El paternóster</figcaption></figure>
+      <figure><span class="vacio">capturas/04.jpg</span><img src="capturas/04.jpg" alt="La montaña de devoluciones" loading="lazy" onerror="this.remove()"><figcaption>La montaña de devoluciones</figcaption></figure>
+      <figure><span class="vacio">capturas/05.jpg</span><img src="capturas/05.jpg" alt="El archivo" loading="lazy" onerror="this.remove()"><figcaption>El archivo</figcaption></figure>
+      <figure><span class="vacio">capturas/06.jpg</span><img src="capturas/06.jpg" alt="La torre" loading="lazy" onerror="this.remove()"><figcaption>La torre</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" id="controles">
+  <div class="cont">
+    <h2>Controles</h2>
+    <div class="lista-teclas">
+      <div class="tl"><span>Moverse</span><span class="k"><kbd>A</kbd><kbd>D</kbd> o <kbd>←</kbd><kbd>→</kbd></span></div>
+      <div class="tl"><span>Subir</span><span class="k"><kbd>W</kbd> o <kbd>↑</kbd></span></div>
+      <div class="tl"><span>Saltar</span><span class="k"><kbd>Espacio</kbd></span></div>
+      <div class="tl"><span>Agarrar, forcejear, empujar</span><span class="k"><kbd>E</kbd> o <kbd>J</kbd></span></div>
+      <div class="tl"><span>Agacharse</span><span class="k"><kbd>S</kbd><kbd>↓</kbd><kbd>C</kbd><kbd>Ctrl</kbd></span></div>
+      <div class="tl"><span>Correr</span><span class="k"><kbd>Mayús</kbd></span></div>
+      <div class="tl"><span>Pausa</span><span class="k"><kbd>Esc</kbd></span></div>
+      <div class="tl"><span>Con mando</span><span class="k">Start pausa el juego</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion dentro" id="dentro">
+  <div class="cont">
+    <div>
+      <h2>Por dentro</h2>
+      <p>Blue Light está hecho con Godot 4.7 (Forward+). Cada capítulo es una escena con su árbol de nodos, los objetos son modelos 3D hechos en Blender o de Poly Haven, y los materiales son recursos que se cambian desde el editor. Los scripts llevan solo la jugabilidad.</p>
+      <p>Tiene más de veinticinco nodos propios (neones, cables para colgarse, cuerdas con física, letreros LED, cabinas) y se prueba solo: recorridos automáticos de cada capítulo, una partida entera de seguido y la pausa tecla a tecla.</p>
+    </div>
+    <div class="estructuras">
+      <h3 class="sub">Tres estructuras de datos que el juego usa de verdad</h3>
+      <div class="estructura"><h4>Lista circular</h4><p>La ruta del juego.</p></div>
+      <div class="estructura"><h4>Cola</h4><p>El secuenciador del sonido, las presas de la garra por orden de llegada y la búsqueda en anchura.</p></div>
+      <div class="estructura"><h4>Grafo</h4><p>La red eléctrica de la ciudad: una telaraña con la antena en el centro.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion jugar" id="jugar">
+  <div class="cont">
+    <h2>Ya se puede jugar</h2>
+    <p>El juego está entero: doce escenas, del primer cuarto a la torre. Con teclado o con mando.</p>
+    <div class="acciones">
+      <!-- CAMBIA: pon aquí tus links reales -->
+      <a class="btn primario" href="#">Jugar en itch.io</a>
+      <a class="btn" href="#">Ver el código</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="cont">
+    <!-- CAMBIA: tu nombre -->
+    <p>Hecho por Tu nombre.</p>
+    <p>Hecho con Godot 4.7 y Blender. Texturas y modelos de Poly Haven; los créditos completos están en CREDITOS.md del repositorio.</p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  'use strict';
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- el aviso: Mi, Do ---------- */
+  const Aviso = {
+    ctx: null,
+    activo: false,
+    init() {
+      if (!this.ctx) {
+        const C = window.AudioContext || window.webkitAudioContext;
+        if (!C) return false;
+        this.ctx = new C();
+      }
+      if (this.ctx.state === 'suspended') this.ctx.resume();
+      return true;
+    },
+    sonar() {
+      if (!this.ctx) return;
+      const t0 = this.ctx.currentTime + 0.02;
+      [[659.25, 0], [523.25, 0.24]].forEach(([hz, o]) => {
+        const osc = this.ctx.createOscillator();
+        const g = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = hz;
+        g.gain.setValueAtTime(0.0001, t0 + o);
+        g.gain.exponentialRampToValueAtTime(0.2, t0 + o + 0.015);
+        g.gain.exponentialRampToValueAtTime(0.0001, t0 + o + 0.6);
+        osc.connect(g);
+        g.connect(this.ctx.destination);
+        osc.start(t0 + o);
+        osc.stop(t0 + o + 0.65);
+      });
+    }
+  };
+
+  const btnSonido = document.getElementById('sonido');
+  btnSonido.addEventListener('click', () => {
+    const on = btnSonido.getAttribute('aria-pressed') !== 'true';
+    if (on && !Aviso.init()) return;
+    Aviso.activo = on;
+    btnSonido.setAttribute('aria-pressed', String(on));
+    btnSonido.textContent = on ? 'Sonido activado' : 'Activar sonido';
+    if (on) Aviso.sonar();
+  });
+
+  const btnOir = document.getElementById('oir');
+  btnOir.addEventListener('click', () => {
+    if (!Aviso.init()) return;
+    Aviso.sonar();
+    btnOir.classList.remove('suena');
+    void btnOir.offsetWidth;
+    btnOir.classList.add('suena');
+  });
+
+  /* ---------- diez cables dormidos ---------- */
+  const cables = [...document.querySelectorAll('.cable')];
+  const cuenta = document.getElementById('cuenta');
+  cables.forEach(b => b.addEventListener('click', () => {
+    b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true'));
+    const n = cables.filter(c => c.getAttribute('aria-pressed') === 'true').length;
+    cuenta.textContent = n === 10 ? 'Los diez. Se apaga el azul.' : n + ' de 10 cortados';
+    document.body.classList.toggle('sin-azul', n === 10);
+  }));
+
+  /* ---------- la portada: la ciudad, los cables y el niño ---------- */
+  const hero = document.getElementById('inicio');
+  const cv = document.getElementById('escena');
+  const ctx = cv.getContext('2d');
+  const estado = document.getElementById('estado');
+  const AZUL = '77,166,255';
+  const VIGILA = 5.2;   // segundos mirando
+  const CABEZAS = 3;    // segundos con la cabeza baja
+  let W = 0, H = 0, suelo = 0, ax = 0;
+  const ay = -40;
+  let figs = [];
+  const nino = { x: 30, objetivo: 30, expo: 0, vistoT: -1, reset: true, llegoT: -1 };
+  let fase = 'vigila', tFase = 0, bajo = 0, t = 0;
+  let last = 0, corriendo = false, raf = 0;
+
+  function azar(seed) {
+    let s = seed * 9301 + 49297;
+    return () => (s = (s * 9301 + 49297) % 233280) / 233280;
+  }
+  function texto(s) { if (estado.textContent !== s) estado.textContent = s; }
+  function textoFase() { texto(fase === 'vigila' ? 'Te miran. Quieto.' : 'Cabezas abajo. Muévete.'); }
+  function rr(x, y, w, h, r) {
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(x, y, w, h, r); else ctx.rect(x, y, w, h);
+  }
+
+  function medir() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    W = hero.clientWidth;
+    H = hero.clientHeight;
+    cv.width = Math.round(W * dpr);
+    cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    suelo = H - 56;
+    ax = W < 720 ? W * 0.5 : W * 0.72;
+    figs = [];
+    const sep = W < 720 ? 74 : 96;
+    let x = 130, i = 0;
+    while (x < W - 50) {
+      const r = azar(i + 1);
+      figs.push({
+        x: x + (r() - 0.5) * 16,
+        dir: i === 0 ? 1 : (r() < 0.5 ? -1 : 1),
+        s: 0.92 + r() * 0.2,
+        off: r(),
+        vel: 0.16 + r() * 0.14
+      });
+      x += sep + r() * 26;
+      i++;
+    }
+    nino.x = Math.min(nino.x, W - 30);
+    nino.objetivo = nino.x;
+    if (reduce) dibujar();
+  }
+
+  function geom(f) {
+    const s = f.s, d = f.dir, e = bajo;
+    const hx = f.x + d * (2 + 4 * e) * s;
+    const hy = suelo - 50 * s + 6 * e * s;
+    return {
+      hx, hy,
+      nape: { x: f.x - d * 4 * s + d * e * s, y: hy + 4 * s },
+      scr: { x: f.x + d * 12 * s, y: suelo - (30 - 2 * e) * s }
+    };
+  }
+
+  function cono(f) {
+    const q = geom(f), d = f.dir;
+    const th0 = d > 0 ? 0.17 : Math.PI - 0.17;
+    const th1 = Math.PI / 2 - d * 0.2;
+    return {
+      sx: q.scr.x, sy: q.scr.y,
+      th: th0 + (th1 - th0) * bajo,
+      L: (170 + (44 - 170) * bajo) * f.s,
+      al: 0.28 + 0.08 * bajo
+    };
+  }
+
+  function bez(c, u) {
+    const a = (1 - u) * (1 - u), b = 2 * (1 - u) * u, d = u * u;
+    return { x: a * c[0].x + b * c[1].x + d * c[2].x, y: a * c[0].y + b * c[1].y + d * c[2].y };
+  }
+
+  function actualizar(dt) {
+    t += dt;
+    tFase += dt;
+
+    if (fase === 'vigila' && tFase >= VIGILA) {
+      fase = 'cabezas'; tFase = 0;
+      if (Aviso.activo) Aviso.sonar();
+      if (nino.vistoT < 0 && nino.llegoT < 0) textoFase();
+    } else if (fase === 'cabezas' && tFase >= CABEZAS) {
+      fase = 'vigila'; tFase = 0;
+      if (nino.vistoT < 0 && nino.llegoT < 0) textoFase();
+    }
+    const meta = fase === 'cabezas' ? 1 : 0;
+    bajo += (meta - bajo) * Math.min(1, dt * (meta ? 9 : 7));
+
+    // lo que pasa cuando te ven
+    if (nino.vistoT >= 0) {
+      nino.vistoT += dt;
+      if (nino.vistoT >= 0.5 && !nino.reset) {
+        nino.reset = true; nino.x = 30; nino.objetivo = 30; nino.expo = 0;
+      }
+      if (nino.vistoT > 1.4) { nino.vistoT = -1; textoFase(); }
+      return;
+    }
+    // cuando llega al otro lado
+    if (nino.llegoT >= 0) {
+      nino.llegoT += dt;
+      if (nino.llegoT > 1.9) { nino.llegoT = -1; nino.x = 30; nino.objetivo = 30; textoFase(); }
+      return;
+    }
+    if (nino.x > W - 36) {
+      nino.llegoT = 0;
+      texto('Llegaste. Así empieza el juego.');
+      return;
+    }
+
+    // se mueve solo con las cabezas abajo
+    if (fase === 'cabezas' && bajo > 0.6) {
+      const dx = nino.objetivo - nino.x, paso = 150 * dt;
+      nino.x += Math.abs(dx) < paso ? dx : Math.sign(dx) * paso;
+    }
+
+    // la luz le da: lo ven
+    if (fase === 'vigila' && bajo < 0.2) {
+      const bx = nino.x, by = suelo - 9;
+      let dentro = false;
+      for (const f of figs) {
+        const c = cono(f);
+        const dx = bx - c.sx, dy = by - c.sy;
+        if (Math.hypot(dx, dy) > c.L) continue;
+        let da = Math.atan2(dy, dx) - c.th;
+        da = Math.atan2(Math.sin(da), Math.cos(da));
+        if (Math.abs(da) < c.al) { dentro = true; break; }
+      }
+      nino.expo = dentro ? nino.expo + dt : Math.max(0, nino.expo - dt * 2);
+      if (nino.expo > 0.45) { nino.vistoT = 0; nino.reset = false; texto('Te vieron.'); }
+    } else {
+      nino.expo = Math.max(0, nino.expo - dt * 2);
+    }
+  }
+
+  function dibujar() {
+    ctx.clearRect(0, 0, W, H);
+
+    // brillo de la antena
+    const pulso = 0.26 + 0.05 * Math.sin(t * 2.2);
+    const g = ctx.createRadialGradient(ax, 0, 0, ax, 0, 300);
+    g.addColorStop(0, `rgba(${AZUL},${pulso})`);
+    g.addColorStop(1, `rgba(${AZUL},0)`);
+    ctx.fillStyle = g;
+    ctx.fillRect(ax - 300, 0, 600, 300);
+
+    // suelo
+    ctx.fillStyle = `rgba(${AZUL},.1)`;
+    ctx.fillRect(0, suelo, W, 1);
+
+    // cables
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = `rgba(${AZUL},.15)`;
+    for (const f of figs) {
+      const p0 = geom(f).nape;
+      const p1 = { x: p0.x + (ax - p0.x) * 0.18, y: ay + (p0.y - ay) * 0.45 };
+      const p2 = { x: ax, y: ay };
+      f._c = [p0, p1, p2];
+      ctx.beginPath();
+      ctx.moveTo(p0.x, p0.y);
+      ctx.quadraticCurveTo(p1.x, p1.y, p2.x, p2.y);
+      ctx.stroke();
+    }
+
+    // pulsos de atención que suben
+    ctx.globalCompositeOperation = 'lighter';
+    for (const f of figs) {
+      const p = (t * f.vel + f.off) % 1;
+      for (let k = 0; k < 4; k++) {
+        const u = p - k * 0.012;
+        if (u < 0) continue;
+        const pt = bez(f._c, u);
+        ctx.fillStyle = `rgba(${AZUL},${0.9 - k * 0.22})`;
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, 1.9 - k * 0.3, 0, 7);
+        ctx.fill();
+      }
+    }
+    ctx.globalCompositeOperation = 'source-over';
+
+    // haces de luz
+    for (const f of figs) {
+      const c = cono(f);
+      const gr = ctx.createLinearGradient(c.sx, c.sy, c.sx + Math.cos(c.th) * c.L, c.sy + Math.sin(c.th) * c.L);
+      gr.addColorStop(0, `rgba(${AZUL},${0.42 * (1 - 0.45 * bajo)})`);
+      gr.addColorStop(1, `rgba(${AZUL},0)`);
+      ctx.fillStyle = gr;
+      ctx.beginPath();
+      ctx.moveTo(c.sx, c.sy);
+      ctx.arc(c.sx, c.sy, c.L, c.th - c.al, c.th + c.al);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    // los atados
+    ctx.lineCap = 'round';
+    for (const f of figs) {
+      const s = f.s, q = geom(f);
+      ctx.fillStyle = '#0e1730';
+      ctx.strokeStyle = `rgba(${AZUL},.28)`;
+      ctx.lineWidth = 1;
+      rr(f.x - 8 * s, suelo - 40 * s, 16 * s, 40 * s, 6 * s);
+      ctx.fill(); ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(q.hx, q.hy, 6.5 * s, 0, 7);
+      ctx.fill(); ctx.stroke();
+      ctx.strokeStyle = '#16213f';
+      ctx.lineWidth = 3 * s;
+      ctx.beginPath();
+      ctx.moveTo(f.x, suelo - 33 * s);
+      ctx.lineTo(q.scr.x, q.scr.y);
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(200,228,255,.95)';
+      ctx.fillRect(q.scr.x - 4 * s + (f.dir > 0 ? 2 : -2) * s, q.scr.y - 3 * s, 8 * s, 6 * s);
+    }
+
+    // el niño
+    const bx = nino.x;
+    const halo = ctx.createRadialGradient(bx, suelo - 10, 0, bx, suelo - 10, 26);
+    halo.addColorStop(0, 'rgba(227,167,18,.28)');
+    halo.addColorStop(1, 'rgba(227,167,18,0)');
+    ctx.fillStyle = halo;
+    ctx.fillRect(bx - 26, suelo - 36, 52, 52);
+    ctx.fillStyle = '#e3a712';
+    rr(bx - 4.5, suelo - 17, 9, 17, 3);
+    ctx.fill();
+    ctx.fillStyle = '#f0d9b5';
+    ctx.beginPath();
+    ctx.arc(bx, suelo - 21.5, 4.5, 0, 7);
+    ctx.fill();
+
+    // destellos y negro cuando te ven
+    if (nino.vistoT >= 0) {
+      const s = nino.vistoT;
+      let col = null, a = 0;
+      if (s < 0.12 || (s > 0.24 && s < 0.36)) { col = AZUL; a = 0.5; }
+      else if (s >= 0.5 && s < 0.7) { col = '0,0,0'; a = 0.92; }
+      else if (s >= 0.7 && s < 1.4) { col = '0,0,0'; a = 0.92 * (1 - (s - 0.7) / 0.7); }
+      if (col) { ctx.fillStyle = `rgba(${col},${a})`; ctx.fillRect(0, 0, W, H); }
+    }
+  }
+
+  function bucle(ts) {
+    if (!corriendo) return;
+    const dt = Math.min(0.05, (ts - last) / 1000 || 0);
+    last = ts;
+    actualizar(dt);
+    dibujar();
+    raf = requestAnimationFrame(bucle);
+  }
+
+  function mover(e) {
+    const r = hero.getBoundingClientRect();
+    nino.objetivo = Math.max(24, Math.min(W - 24, e.clientX - r.left));
+  }
+  hero.addEventListener('pointermove', mover);
+  hero.addEventListener('pointerdown', mover);
+
+  if (reduce) {
+    fase = 'cabezas'; bajo = 1;
+    texto('Cabezas abajo.');
+  }
+  new ResizeObserver(medir).observe(hero);
+  medir();
+
+  if (!reduce) {
+    new IntersectionObserver(([en]) => {
+      if (en.isIntersecting && !corriendo) {
+        corriendo = true;
+        last = performance.now();
+        raf = requestAnimationFrame(bucle);
+      } else if (!en.isIntersecting) {
+        corriendo = false;
+        cancelAnimationFrame(raf);
+      }
+    }).observe(hero);
+  }
+})();
+</script>
+</body>
+</html>
