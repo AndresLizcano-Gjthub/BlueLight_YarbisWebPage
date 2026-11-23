@@ -6,12 +6,12 @@
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#050810">
 <title>Blue Light | No dejes que la luz te apague</title>
-<meta name="description" content="Una ciudad entera vive mirando su pantalla. Tú debes soltar y liberar a la ciudad de esta prisión digital. Un juego de plataformas hecho en Godot 4.7.">
+<meta name="description" content="Toda una ciudad mira su pantalla. Todos, menos un niño. Plataformas y puzles 2.5D, proyecto universitario hecho con Godot 4.7.">
 <meta property="og:title" content="Blue Light">
-<meta property="og:description" content="Una ciudad entera vive mirando su pantalla. Un niño se ha soltado y corre hacia la torre.">
+<meta property="og:description" content="Toda una ciudad mira su pantalla. Todos, menos un niño.">
 <meta property="og:type" content="website">
-<!-- CAMBIA: para que la imagen salga al compartir el link, pon la URL completa, por ejemplo https://tu-sitio.vercel.app/capturas/01.jpg -->
-<meta property="og:image" content="capturas/01.jpg">
+<!-- CAMBIA: para que la imagen salga al compartir el link, pon la URL completa, por ejemplo https://tu-sitio.vercel.app/01_prologo_1_la_red.jpg -->
+<meta property="og:image" content="01_prologo_1_la_red.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23050810'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%234da6ff'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23e3a712'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,10 +59,9 @@ a{color:inherit}
 .hero-in{padding:120px var(--gutter) 170px;max-width:900px}
 .titulo{font:900 clamp(3.6rem,13vw,10rem)/.88 var(--display);letter-spacing:.02em;margin:0 0 .3em}
 .lema{font-size:clamp(1.25rem,2.4vw,1.75rem);line-height:1.4;max-width:30ch;margin:0 0 .5em}
-.meta{color:var(--apagado);margin:0 0 2em}
-.acciones{display:flex;flex-wrap:wrap;gap:14px}
-.btn{display:inline-block;padding:.85em 1.5em;border-radius:999px;font:600 1.0625rem/1 var(--texto);text-decoration:none;border:1.5px solid var(--hueso);transition:background .2s,color .2s,border-color .2s}
-.btn:hover{background:var(--hueso);color:var(--noche)}
+.etiqueta{font:700 .85rem/1 var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--mostaza);margin:0 0 1.4em}
+.meta{color:var(--apagado);margin:0 0 2em;max-width:44ch}
+.btn{display:inline-block;padding:.85em 1.6em;border-radius:999px;font:600 1.0625rem/1 var(--texto);text-decoration:none;border:1.5px solid var(--hueso);transition:background .2s,color .2s,border-color .2s}
 .btn.primario{background:var(--mostaza);border-color:var(--mostaza);color:var(--noche)}
 .btn.primario:hover{background:var(--calida);border-color:var(--calida)}
 .estado{position:absolute;left:var(--gutter);bottom:16px;margin:0;color:var(--apagado);font-style:italic}
@@ -71,24 +70,25 @@ a{color:inherit}
 .sonido[aria-pressed=true]{color:var(--hueso);border-color:var(--azul)}
 
 /* ---------- secciones ---------- */
-.seccion{padding:clamp(80px,12vw,150px) var(--gutter)}
+.seccion{padding:clamp(64px,9vw,110px) var(--gutter)}
 .cont{max-width:1080px;margin:0 auto}
 h2{font:900 clamp(2rem,5vw,3.4rem)/1.05 var(--display);letter-spacing:.01em;margin:0 0 .6em}
 
-.historia .cont{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,6vw,96px);align-items:start}
-.historia h2{margin:0}
+.historia .cont,.dentro .cont{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,6vw,96px);align-items:start}
+.historia h2,.dentro h2{margin:0}
 .historia p{max-width:58ch;margin:0 0 1.1em}
-.historia .lead{font-size:clamp(1.35rem,2.4vw,1.75rem);line-height:1.45}
+.historia p:last-child{margin-bottom:0}
+.historia .lead{font-size:clamp(1.3rem,2.3vw,1.65rem);line-height:1.45}
 .historia .nota{color:var(--apagado)}
 
-.reglas h2{max-width:14ch;margin-bottom:.9em}
-.regla{display:grid;grid-template-columns:200px minmax(0,1fr);gap:clamp(20px,4vw,56px);padding:36px 0;border-top:1px solid var(--linea);align-items:start}
-.regla h3{font:600 1.5rem/1.25 var(--texto);margin:0 0 .4em}
-.regla p{margin:0;max-width:56ch;color:var(--suave)}
+.reglas-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(24px,4vw,56px)}
+.regla{display:flex;flex-direction:column;gap:18px;padding:30px 0 34px;border-top:1px solid var(--linea)}
+.regla h3{font:600 1.4rem/1.25 var(--texto);margin:0 0 .35em}
+.regla p{margin:0;max-width:52ch;color:var(--suave)}
 .visual{display:flex;flex-direction:column;justify-content:center;min-height:96px}
 .rayado{font:700 1.05rem/1 var(--display);letter-spacing:.08em;color:var(--hueso);white-space:nowrap}
 
-.aviso{display:inline-flex;align-items:center;gap:10px;background:none;border:1px solid var(--linea);color:var(--hueso);padding:.7em 1em;border-radius:12px;font:inherit;font-size:1rem;cursor:pointer;transition:border-color .2s}
+.aviso{display:inline-flex;align-items:center;gap:10px;background:none;border:1px solid var(--linea);color:var(--hueso);padding:.7em 1em;border-radius:12px;font:inherit;font-size:1rem;cursor:pointer;transition:border-color .2s;align-self:flex-start}
 .aviso:hover{border-color:var(--azul)}
 .aviso i{display:block;width:12px;height:12px;border-radius:50%;background:var(--azul)}
 .aviso i+i{width:9px;height:9px;opacity:.55}
@@ -104,48 +104,43 @@ h2{font:900 clamp(2rem,5vw,3.4rem)/1.05 var(--display);letter-spacing:.01em;marg
 .cable[aria-pressed=true]::after{background:var(--calida);border-color:var(--calida);box-shadow:0 0 18px 4px rgba(255,184,101,.55)}
 .cuenta{margin:8px 0 0;color:var(--apagado);font-size:.95rem}
 
-.recorrido p{max-width:52ch;color:var(--suave);margin:0}
-.escalera{list-style:none;margin:56px 0 0;padding:0;display:flex;flex-direction:column-reverse;gap:6px}
-.escalera li{margin-left:calc(var(--i)*3.2%);padding:10px 0 10px 18px;border-left:2px solid rgba(77,166,255,.35);max-width:560px}
-.escalera li:last-child{border-left-color:var(--mostaza)}
-.escalera b{display:block;font:600 1.2rem/1.3 var(--texto)}
-.escalera span{color:var(--apagado);font-size:1rem;line-height:1.45;display:block}
+/* teclas, en una sola franja */
+.teclas{display:flex;flex-wrap:wrap;gap:14px 30px;margin-top:8px;padding-top:28px;border-top:1px solid var(--linea);color:var(--apagado);font-size:1rem}
+.teclas span{display:inline-flex;align-items:center;gap:6px}
+.teclas .sep{margin:0 2px}
+.teclas .que{margin-left:6px}
+kbd{font:600 .9rem/1 ui-monospace,"SF Mono",Consolas,monospace;min-width:2.2em;padding:.55em .7em .6em;text-align:center;color:var(--hueso);background:linear-gradient(#18233f,#101a31);border:1px solid #2a3a62;border-bottom-width:3px;border-radius:7px}
 
-.galeria{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:40px}
-.galeria figure{margin:0;position:relative;aspect-ratio:16/9;background:var(--noche2);border-radius:10px;overflow:hidden;display:grid;place-items:center}
-.galeria figure:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
-.galeria img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.galeria figcaption{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 10px;background:linear-gradient(transparent,rgba(5,8,16,.88));font-size:.95rem;font-style:italic}
-.vacio{color:var(--apagado);font-size:.9rem;text-align:center;padding:1em}
+/* escenas */
+.escenas .intro{max-width:52ch;color:var(--suave);margin:0 0 36px}
+.galeria{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:28px 16px;list-style:none;margin:0;padding:0}
+.galeria figure{margin:0}
+.galeria .foto{aspect-ratio:16/9;background:var(--noche2);border-radius:10px;overflow:hidden}
+.galeria img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.galeria li:hover img{transform:scale(1.04)}
+.galeria figcaption{padding-top:10px}
+.galeria b{display:block;font:600 1.05rem/1.3 var(--texto)}
+.galeria b i{font:700 .8rem/1 var(--display);font-style:normal;color:var(--mostaza);letter-spacing:.06em;margin-right:.5em}
+.galeria span{display:block;color:var(--apagado);font-size:.95rem;line-height:1.45;margin-top:2px}
 
-.lista-teclas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(24px,6vw,80px);margin-top:36px}
-.tl{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0;border-top:1px solid var(--linea)}
-.tl .k{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end;color:var(--apagado)}
-kbd{font:600 .95rem/1 ui-monospace,"SF Mono",Consolas,monospace;min-width:2.3em;padding:.6em .75em .65em;text-align:center;color:var(--hueso);background:linear-gradient(#18233f,#101a31);border:1px solid #2a3a62;border-bottom-width:3px;border-radius:7px}
+/* por dentro */
+.dentro p{max-width:56ch;color:var(--suave);margin:1.1em 0 0}
+.dentro h3.sub{font:italic 600 1.05rem/1.3 var(--texto);color:var(--apagado);margin:0 0 .8em}
+.estructura{padding:16px 0;border-top:1px solid var(--linea)}
+.estructura:first-child{border-top:0;padding-top:0}
+.estructura h3{font:600 1.2rem/1.3 var(--texto);margin:0 0 .15em}
+.estructura p{margin:0;font-size:1rem;color:var(--apagado)}
 
-.dentro .cont{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,6vw,96px);align-items:start}
-.dentro p{max-width:56ch;color:var(--suave);margin:0 0 1.1em}
-.dentro h2{margin-bottom:.5em}
-.estructuras h3.sub{font:600 1.05rem/1.3 var(--texto);color:var(--apagado);margin:0 0 .6em;font-style:italic}
-.estructura{padding:20px 0;border-top:1px solid var(--linea)}
-.estructura h4{font:600 1.3rem/1.3 var(--texto);margin:0 0 .25em}
-.estructura p{margin:0}
-
-.jugar h2{font-size:clamp(2.4rem,7vw,5rem)}
-.jugar p{max-width:48ch;color:var(--suave);margin:0 0 2em}
-
-footer{padding:48px var(--gutter) 64px;border-top:1px solid var(--linea);color:var(--apagado);font-size:1rem}
-footer .cont{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:baseline}
-footer p{margin:0;max-width:52ch}
+footer{padding:40px var(--gutter) 56px;border-top:1px solid var(--linea);color:var(--apagado);font-size:1rem}
+footer .cont{display:flex;justify-content:space-between;gap:12px 32px;flex-wrap:wrap;align-items:baseline}
+footer p{margin:0;max-width:60ch}
+footer a{color:var(--hueso)}
 
 @media (max-width:820px){
   .historia .cont,.dentro .cont{grid-template-columns:1fr}
-  .regla{grid-template-columns:1fr;gap:16px}
-  .galeria{grid-template-columns:1fr}
-  .galeria figure:first-child{grid-column:auto;grid-row:auto;aspect-ratio:16/9}
-  .lista-teclas{grid-template-columns:1fr}
-  .nav ul li:not(:last-child){display:none}
-  .escalera li{margin-left:calc(var(--i)*1.6%)}
+  .dentro .cont{gap:28px}
+  .reglas-grid{grid-template-columns:1fr}
+  .nav ul{display:none}
   .hero-in{padding-bottom:190px}
 }
 </style>
@@ -156,10 +151,9 @@ footer p{margin:0;max-width:52ch}
   <a class="marca" href="#" aria-label="Blue Light, inicio"><span class="w-azul">BLUE</span> LIGHT</a>
   <ul>
     <li><a href="#historia">Historia</a></li>
-    <li><a href="#reglas">Reglas</a></li>
-    <li><a href="#recorrido">Recorrido</a></li>
-    <li><a href="#capturas">Capturas</a></li>
-    <li><a href="#jugar">Jugar</a></li>
+    <li><a href="#reglas">Cómo se juega</a></li>
+    <li><a href="#escenas">Escenas</a></li>
+    <li><a href="#dentro">El equipo</a></li>
   </ul>
 </nav>
 
@@ -168,13 +162,12 @@ footer p{margin:0;max-width:52ch}
 <header class="hero" id="inicio">
   <canvas id="escena" aria-hidden="true"></canvas>
   <div class="hero-in">
+    <p class="etiqueta">Proyecto universitario · Yarvis Entertainment</p>
     <h1 class="titulo"><span class="w-azul">BLUE</span> LIGHT</h1>
-    <p class="lema">Una ciudad entera vive mirando su pantalla. Un niño se ha soltado y corre hacia la torre.</p>
-    <p class="meta">Plataformas y puzles 2.5D, hechos en Godot 4.7.</p>
-    <div class="acciones">
-      <a class="btn primario" href="#jugar">Jugar</a>
-      <a class="btn" href="#historia">Ver la historia</a>
-    </div>
+    <p class="lema">Toda una ciudad mira su pantalla. Todos, menos un niño.</p>
+    <p class="meta">Plataformas y puzles 2.5D. Doce escenas, con teclado o mando, directo en el navegador.</p>
+    <!-- CAMBIA: tu link de juego -->
+    <a class="btn primario" href="https://webbluelight.netlify.app/">Jugar ahora</a>
   </div>
   <p class="estado" id="estado" aria-hidden="true">Te miran. Quieto.</p>
   <button class="sonido" id="sonido" type="button" aria-pressed="false">Activar sonido</button>
@@ -184,162 +177,114 @@ footer p{margin:0;max-width:52ch}
   <div class="cont">
     <h2>Nadie levanta la vista</h2>
     <div>
-      <p class="lead">De cada pantalla sale un cable que sube desde la nuca de su dueño. Todos los cables suben, barrio a barrio, hasta la antena de una torre.</p>
-      <p>Por ellos viaja la atención de la gente, en pulsos de luz, como la cosecha de un campo.</p>
-      <p>Un niño con una sudadera mostaza se ha soltado. Tú lo llevas hasta la torre.</p>
-      <p class="nota">El juego casi no usa palabras: dos líneas al empezar la primera partida. Lo demás lo cuentan las reglas y lo que se ve.</p>
+      <p class="lead">De la nuca de cada persona sale un cable que sube hasta la antena de una torre. Por ahí se les va la atención, pulso a pulso.</p>
+      <p>Un niño con sudadera mostaza se soltó. Tú lo llevas hasta arriba.</p>
+      <p class="nota">Casi no hay texto: dos líneas al empezar y listo. Lo demás hay que descubrirlo mirando. Empieza por los relojes, llevan parados desde las 21:47.</p>
     </div>
   </div>
 </section>
 
 <section class="seccion reglas" id="reglas">
   <div class="cont">
-    <h2>Se aprende mirando</h2>
+    <h2>Tres cosas que conviene saber</h2>
 
-    <div class="regla">
-      <div class="visual">
-        <svg viewBox="0 0 200 90" width="200" height="90" aria-hidden="true">
-          <defs><linearGradient id="haz" x1="0" x2="1"><stop offset="0" stop-color="#4da6ff" stop-opacity=".6"/><stop offset="1" stop-color="#4da6ff" stop-opacity="0"/></linearGradient></defs>
-          <path d="M52 52 L196 32 L196 82 Z" fill="url(#haz)"/>
-          <rect x="26" y="42" width="14" height="40" rx="6" fill="#0e1730" stroke="#4da6ff" stroke-opacity=".4"/>
-          <circle cx="36" cy="33" r="7" fill="#0e1730" stroke="#4da6ff" stroke-opacity=".4"/>
-          <rect x="44" y="49" width="9" height="6" rx="1" fill="#c8e4ff"/>
-          <rect x="150" y="64" width="9" height="18" rx="3" fill="#e3a712"/>
-          <circle cx="154.5" cy="60" r="4.5" fill="#f0d9b5"/>
-        </svg>
-      </div>
-      <div>
-        <h3>La luz de las pantallas es la mirada</h3>
-        <p>Si la luz de una pantalla te alcanza un momento, te ven y la red te recupera: la imagen se va a negro y vuelves al último punto de control.</p>
-      </div>
-    </div>
-
-    <div class="regla">
-      <div class="visual">
-        <div><button class="aviso" id="oir" type="button" aria-label="Oír el aviso"><i></i><i></i><span>Oír el aviso</span></button></div>
-      </div>
-      <div>
-        <h3>Cada pocos segundos suena un aviso</h3>
-        <p>Dos notas, Mi y Do. Todos bajan la cabeza a la vez y su luz cae a sus pies. Es el momento de moverse.</p>
-      </div>
-    </div>
-
-    <div class="regla">
-      <div class="visual">
-        <svg viewBox="0 0 100 100" width="96" height="96" role="img" aria-label="Reloj parado a las 21:47">
-          <circle cx="50" cy="50" r="46" fill="none" stroke="#4da6ff" stroke-opacity=".5" stroke-width="2"/>
-          <g stroke="#8d97ad" stroke-width="2" stroke-linecap="round"><line x1="50" y1="8" x2="50" y2="14"/><line x1="92" y1="50" x2="86" y2="50"/><line x1="50" y1="92" x2="50" y2="86"/><line x1="8" y1="50" x2="14" y2="50"/></g>
-          <line x1="50" y1="50" x2="29.8" y2="41.3" stroke="#e8ebf2" stroke-width="4" stroke-linecap="round"/>
-          <line x1="50" y1="50" x2="16.8" y2="42.9" stroke="#e8ebf2" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="50" cy="50" r="3" fill="#e3a712"/>
-        </svg>
-      </div>
-      <div>
-        <h3>Hubo un antes</h3>
-        <p>Los relojes están parados a las 21:47. En las fotos viejas todos miran a la cámara; en las nuevas, todos hacia abajo. En las paredes, alguien ha rayado lo que el sistema no dice: <span class="rayado">ARRIBA, MIRA</span>.</p>
-      </div>
-    </div>
-
-    <div class="regla">
-      <div class="visual">
-        <div class="cables" id="cables" role="group" aria-label="Diez cables dormidos">
-          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 1"></button>
-          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 2"></button>
-          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 3"></button>
-          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 4"></button>
-          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 5"></button>
-          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 6"></button>
-          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 7"></button>
-          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 8"></button>
-          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 9"></button>
-          <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 10"></button>
+    <div class="reglas-grid">
+      <div class="regla">
+        <div class="visual">
+          <svg viewBox="0 0 200 90" width="200" height="90" aria-hidden="true">
+            <defs><linearGradient id="haz" x1="0" x2="1"><stop offset="0" stop-color="#4da6ff" stop-opacity=".6"/><stop offset="1" stop-color="#4da6ff" stop-opacity="0"/></linearGradient></defs>
+            <path d="M52 52 L196 32 L196 82 Z" fill="url(#haz)"/>
+            <rect x="26" y="42" width="14" height="40" rx="6" fill="#0e1730" stroke="#4da6ff" stroke-opacity=".4"/>
+            <circle cx="36" cy="33" r="7" fill="#0e1730" stroke="#4da6ff" stroke-opacity=".4"/>
+            <rect x="44" y="49" width="9" height="6" rx="1" fill="#c8e4ff"/>
+            <rect x="150" y="64" width="9" height="18" rx="3" fill="#e3a712"/>
+            <circle cx="154.5" cy="60" r="4.5" fill="#f0d9b5"/>
+          </svg>
         </div>
-        <p class="cuenta" id="cuenta" aria-live="polite">0 de 10 cortados</p>
+        <div>
+          <h3>Su luz es su mirada</h3>
+          <p>Las pantallas funcionan como ojos. Si su luz te alcanza, te ven: la imagen se va a negro y vuelves al último punto de control.</p>
+        </div>
       </div>
-      <div>
-        <h3>Diez cables duermen</h3>
-        <p>Desde el Prólogo II, en cada escena hay alguien durmiendo con el cable puesto. Nadie lo anuncia. Lo que hagas con ellos cambia cómo termina todo.</p>
+
+      <div class="regla">
+        <div class="visual">
+          <button class="aviso" id="oir" type="button" aria-label="Oír el aviso"><i></i><i></i><span>Oír el aviso</span></button>
+        </div>
+        <div>
+          <h3>Atento al aviso</h3>
+          <p>Cada pocos segundos suenan dos notas, Mi y Do. Todos bajan la cabeza a la vez y su luz cae al suelo. Si lo oyes, muévete.</p>
+        </div>
       </div>
+
+      <div class="regla">
+        <div class="visual">
+          <div class="cables" id="cables" role="group" aria-label="Diez cables dormidos">
+            <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 1"></button>
+            <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 2"></button>
+            <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 3"></button>
+            <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 4"></button>
+            <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 5"></button>
+            <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 6"></button>
+            <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 7"></button>
+            <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 8"></button>
+            <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 9"></button>
+            <button class="cable" type="button" aria-pressed="false" aria-label="Cortar cable 10"></button>
+          </div>
+          <p class="cuenta" id="cuenta" aria-live="polite">0 de 10 cortados</p>
+        </div>
+        <div>
+          <h3>Diez cables duermen</h3>
+          <p>Desde el Prólogo II, en cada escena hay alguien dormido con el cable puesto. Nadie te dice qué hacer con ellos, pero lo que decidas cambia el final.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="teclas" aria-label="Controles">
+      <span><kbd>A</kbd><kbd>D</kbd><span class="sep">o</span><kbd>←</kbd><kbd>→</kbd><span class="que">moverse</span></span>
+      <span><kbd>W</kbd><span class="sep">o</span><kbd>↑</kbd><span class="que">subir</span></span>
+      <span><kbd>Espacio</kbd><span class="que">saltar</span></span>
+      <span><kbd>E</kbd><span class="sep">o</span><kbd>J</kbd><span class="que">agarrar y empujar</span></span>
+      <span><kbd>S</kbd><kbd>C</kbd><kbd>Ctrl</kbd><span class="que">agacharse</span></span>
+      <span><kbd>Mayús</kbd><span class="que">correr</span></span>
+      <span><kbd>Esc</kbd><span class="que">pausa (con mando, Start)</span></span>
     </div>
   </div>
 </section>
 
-<section class="seccion recorrido" id="recorrido">
+<section class="seccion escenas" id="escenas">
   <div class="cont">
-    <h2>Doce escenas, del cuarto a la cima</h2>
-    <p>Se lee de abajo arriba, como se sube: empiezas en un cuarto con monitores de tubo y acabas en la antena.</p>
-    <ol class="escalera">
-      <li style="--i:0"><b>Prólogo I · La red</b><span>El cuarto: monitores de tubo y un reloj parado a las 21:47.</span></li>
-      <li style="--i:1"><b>Prólogo II · La escalera</b><span>Un edificio por plantas, hasta el portal.</span></li>
-      <li style="--i:2"><b>El aula</b><span>Pupitres, alumnos y una maestra que se desliza por un raíl.</span></li>
-      <li style="--i:3"><b>Hora punta</b><span>Una fila que avanza y una multitud que no levanta la vista.</span></li>
-      <li style="--i:4"><b>Tendidos</b><span>Azoteas, cables, una palanca y un corte de luz en el barrio.</span></li>
-      <li style="--i:5"><b>El paternóster</b><span>Veinte cabinas en bucle por un edificio de oficinas.</span></li>
-      <li style="--i:6"><b>La última línea</b><span>Un tren quieto y un mundo que se desliza a su alrededor.</span></li>
-      <li style="--i:7"><b>Planta de carga</b><span>Un raíl con treinta y tres carros colgados y una puerta de guillotina.</span></li>
-      <li style="--i:8"><b>La montaña de devoluciones</b><span>Miles de aparatos, una grúa y una garra.</span></li>
-      <li style="--i:9"><b>Campo de antenas</b><span>Trigales, espantapájaros, cuervos y una valla que pide no perderse nada.</span></li>
-      <li style="--i:10"><b>El archivo</b><span>Una nave fría con doscientas veinte tiras de película colgando.</span></li>
-      <li style="--i:11"><b>La torre</b><span>La antena, la ciudad entera a tus pies y un montacargas.</span></li>
+    <h2>Doce escenas hasta la antena</h2>
+    <p class="intro">Empiezas en un cuarto con monitores de tubo. Terminas en lo más alto, con la ciudad entera a tus pies.</p>
+    <ol class="galeria">
+      <li><figure><div class="foto"><img src="01_prologo_1_la_red.jpg" alt="Prólogo I, La red" loading="lazy" width="1200" height="675"></div><figcaption><b><i>01</i>Prólogo I · La red</b><span>Un cuarto, monitores de tubo y un reloj parado.</span></figcaption></figure></li>
+      <li><figure><div class="foto"><img src="02_prologo_2_la_escalera.jpg" alt="Prólogo II, La escalera" loading="lazy" width="1200" height="675"></div><figcaption><b><i>02</i>Prólogo II · La escalera</b><span>Planta a planta, hasta el portal.</span></figcaption></figure></li>
+      <li><figure><div class="foto"><img src="03_el_aula.jpg" alt="El aula" loading="lazy" width="1200" height="675"></div><figcaption><b><i>03</i>El aula</b><span>Pupitres, alumnos y una maestra que viaja por un raíl.</span></figcaption></figure></li>
+      <li><figure><div class="foto"><img src="04_hora_punta.jpg" alt="Hora punta" loading="lazy" width="1200" height="675"></div><figcaption><b><i>04</i>Hora punta</b><span>Una fila que avanza. Nadie mira.</span></figcaption></figure></li>
+      <li><figure><div class="foto"><img src="05_tendidos.jpg" alt="Tendidos" loading="lazy" width="1200" height="675"></div><figcaption><b><i>05</i>Tendidos</b><span>Azoteas, cables y un barrio a punto de quedarse sin luz.</span></figcaption></figure></li>
+      <li><figure><div class="foto"><img src="06_el_paternoster.jpg" alt="El paternóster" loading="lazy" width="1200" height="675"></div><figcaption><b><i>06</i>El paternóster</b><span>Veinte cabinas girando sin parar.</span></figcaption></figure></li>
+      <li><figure><div class="foto"><img src="07_la_ultima_linea.jpg" alt="La última línea" loading="lazy" width="1200" height="675"></div><figcaption><b><i>07</i>La última línea</b><span>Un tren quieto y un mundo que se desliza.</span></figcaption></figure></li>
+      <li><figure><div class="foto"><img src="08_planta_de_carga.jpg" alt="Planta de carga" loading="lazy" width="1200" height="675"></div><figcaption><b><i>08</i>Planta de carga</b><span>Treinta y tres carros colgados y una puerta de guillotina.</span></figcaption></figure></li>
+      <li><figure><div class="foto"><img src="09_la_montana_de_devoluciones.jpg" alt="La montaña de devoluciones" loading="lazy" width="1200" height="675"></div><figcaption><b><i>09</i>La montaña de devoluciones</b><span>Miles de aparatos, una grúa y una garra.</span></figcaption></figure></li>
+      <li><figure><div class="foto"><img src="10_campo_de_antenas.jpg" alt="Campo de antenas" loading="lazy" width="1200" height="675"></div><figcaption><b><i>10</i>Campo de antenas</b><span>Trigales, espantapájaros, cuervos y una valla que pide no perderte nada.</span></figcaption></figure></li>
+      <li><figure><div class="foto"><img src="11_el_archivo.jpg" alt="El archivo" loading="lazy" width="1200" height="675"></div><figcaption><b><i>11</i>El archivo</b><span>Doscientas veinte tiras de película colgando en una nave fría.</span></figcaption></figure></li>
+      <li><figure><div class="foto"><img src="12_la_torre.jpg" alt="La torre" loading="lazy" width="1200" height="675"></div><figcaption><b><i>12</i>La torre</b><span>La antena, la ciudad abajo y un montacargas.</span></figcaption></figure></li>
     </ol>
-  </div>
-</section>
-
-<section class="seccion" id="capturas">
-  <div class="cont">
-    <h2>Capturas</h2>
-    <!-- CAMBIA: guarda tus capturas en la carpeta capturas/ con estos nombres (01.jpg a 06.jpg) y cambia los pies de foto -->
-    <div class="galeria">
-      <figure><span class="vacio">capturas/01.jpg</span><img src="capturas/01.jpg" alt="Prólogo I, La red" loading="lazy" onerror="this.remove()"><figcaption>Prólogo I · La red</figcaption></figure>
-      <figure><span class="vacio">capturas/02.jpg</span><img src="capturas/02.jpg" alt="Hora punta" loading="lazy" onerror="this.remove()"><figcaption>Hora punta</figcaption></figure>
-      <figure><span class="vacio">capturas/03.jpg</span><img src="capturas/03.jpg" alt="El paternóster" loading="lazy" onerror="this.remove()"><figcaption>El paternóster</figcaption></figure>
-      <figure><span class="vacio">capturas/04.jpg</span><img src="capturas/04.jpg" alt="La montaña de devoluciones" loading="lazy" onerror="this.remove()"><figcaption>La montaña de devoluciones</figcaption></figure>
-      <figure><span class="vacio">capturas/05.jpg</span><img src="capturas/05.jpg" alt="El archivo" loading="lazy" onerror="this.remove()"><figcaption>El archivo</figcaption></figure>
-      <figure><span class="vacio">capturas/06.jpg</span><img src="capturas/06.jpg" alt="La torre" loading="lazy" onerror="this.remove()"><figcaption>La torre</figcaption></figure>
-    </div>
-  </div>
-</section>
-
-<section class="seccion" id="controles">
-  <div class="cont">
-    <h2>Controles</h2>
-    <div class="lista-teclas">
-      <div class="tl"><span>Moverse</span><span class="k"><kbd>A</kbd><kbd>D</kbd> o <kbd>←</kbd><kbd>→</kbd></span></div>
-      <div class="tl"><span>Subir</span><span class="k"><kbd>W</kbd> o <kbd>↑</kbd></span></div>
-      <div class="tl"><span>Saltar</span><span class="k"><kbd>Espacio</kbd></span></div>
-      <div class="tl"><span>Agarrar, forcejear, empujar</span><span class="k"><kbd>E</kbd> o <kbd>J</kbd></span></div>
-      <div class="tl"><span>Agacharse</span><span class="k"><kbd>S</kbd><kbd>↓</kbd><kbd>C</kbd><kbd>Ctrl</kbd></span></div>
-      <div class="tl"><span>Correr</span><span class="k"><kbd>Mayús</kbd></span></div>
-      <div class="tl"><span>Pausa</span><span class="k"><kbd>Esc</kbd></span></div>
-      <div class="tl"><span>Con mando</span><span class="k">Start pausa el juego</span></div>
-    </div>
   </div>
 </section>
 
 <section class="seccion dentro" id="dentro">
   <div class="cont">
     <div>
-      <h2>Por dentro</h2>
-      <p>Blue Light está hecho con Godot 4.7 (Forward+). Cada capítulo es una escena con su árbol de nodos, los objetos son modelos 3D hechos en Blender o de Poly Haven, y los materiales son recursos que se cambian desde el editor. Los scripts llevan solo la jugabilidad.</p>
-      <p>Tiene más de veinticinco nodos propios (neones, cables para colgarse, cuerdas con física, letreros LED, cabinas) y se prueba solo: recorridos automáticos de cada capítulo, una partida entera de seguido y la pausa tecla a tecla.</p>
+      <h2>Hecho en equipo</h2>
+      <!-- CAMBIA: añade la materia y los integrantes si quieres -->
+      <p>Blue Light es un proyecto universitario de Yarvis Entertainment, un equipo de estudiantes de la Universidad del Norte. Lo montamos en Godot 4.7 con modelos de Blender y de Poly Haven, y más de veinticinco nodos propios: neones, cuerdas con física, cabinas, letreros LED.</p>
     </div>
-    <div class="estructuras">
-      <h3 class="sub">Tres estructuras de datos que el juego usa de verdad</h3>
-      <div class="estructura"><h4>Lista circular</h4><p>La ruta del juego.</p></div>
-      <div class="estructura"><h4>Cola</h4><p>El secuenciador del sonido, las presas de la garra por orden de llegada y la búsqueda en anchura.</p></div>
-      <div class="estructura"><h4>Grafo</h4><p>La red eléctrica de la ciudad: una telaraña con la antena en el centro.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="seccion jugar" id="jugar">
-  <div class="cont">
-    <h2>Ya se puede jugar</h2>
-    <p>El juego está entero: doce escenas, del primer cuarto a la torre. Con teclado o con mando.</p>
-    <div class="acciones">
-      <!-- CAMBIA: pon aquí tus links reales -->
-      <a class="btn primario" href="https://webbluelight.netlify.app/">Juega desde tu navegador!</a>
-      <a class="btn" href="#">Accede a nuestro repositorio</a>
+    <div>
+      <h3 class="sub">Y, como buen proyecto de clase, tres estructuras de datos de las de verdad</h3>
+      <div class="estructura"><h3>Lista circular</h3><p>La ruta del juego.</p></div>
+      <div class="estructura"><h3>Cola</h3><p>El sonido, la garra y la búsqueda en anchura.</p></div>
+      <div class="estructura"><h3>Grafo</h3><p>La red eléctrica de la ciudad, con la antena en el centro.</p></div>
     </div>
   </div>
 </section>
@@ -348,9 +293,7 @@ footer p{margin:0;max-width:52ch}
 
 <footer>
   <div class="cont">
-    <!-- CAMBIA: tu nombre -->
-    <p>Una producción de Yarvis Entertainment.</p>
-    <p>Hecho con Godot 4.7, Blender, con texturas rescatadas de Poly Haven; los créditos completos están en CREDITOS.md del repositorio.</p>
+    <p>Yarvis Entertainment · Universidad del Norte. Texturas de Poly Haven; créditos completos en CREDITOS.md del <a href="#">repositorio</a>.</p>
   </div>
 </footer>
 
